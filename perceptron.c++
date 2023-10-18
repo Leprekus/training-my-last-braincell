@@ -16,8 +16,20 @@ float data[][2] = {
     { 9,  18  },
     { 10, 20  },
     };
+float data2[][2] = { 
+    { 0,  0   },
+    { 3,  9   },
+    { 6,  18   },
+    { 9,  27  },
+    { 12, 36  },
+    { 15, 75  },
+    { 18, 54  },
+    { 21, 63  },
+
+    };
 
 float data_count = sizeof(data) / sizeof(data[0]);
+float data_count2 = sizeof(data2) / sizeof(data2[0]);
 
 float rand_float(void) {
     return (float) rand() / (float) RAND_MAX;
@@ -40,8 +52,7 @@ float cost(float weight) {
     return result;
 }
 
-int main (){
-
+float w() {
     srand(69);
     float weight = rand_float() * 10.0f;
 
@@ -55,7 +66,20 @@ int main (){
         weight -= rate * differenceCost;
         printf("margin: %f result: %f \n", cost(weight), weight);
     }
+    return weight;
+}
 
-   
+int main (){
+
+    float weight = w();
+    for(size_t i = 0; i < data_count; ++i) {
+        double actual = data[i][0] * weight;
+        printf("expected: %f actual: %f \n", data[i][1], actual);
+    }
+
+    for(size_t i = 0; i < data_count2; ++i) {
+        double actual = data2[i][0] * weight;
+        printf("expected: %f actual: %f \n", data2[i][1], actual);
+    }
     return 0;
 }
